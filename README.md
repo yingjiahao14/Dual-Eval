@@ -13,7 +13,7 @@ This repository provides the code and data for our paper on multilingual LLMs ev
 
 
 <p align="center" width="100%">
-<a target="_blank"><img src="figures/probing_min.pdf" alt="dual-eval" style="width: 90%; min-width: 200px; display: block; margin: auto;"></a>
+<a target="_blank"><img src="figures/main.png" alt="dual-eval" style="width: 90%; min-width: 200px; display: block; margin: auto;"></a>
 </p>
 
 
