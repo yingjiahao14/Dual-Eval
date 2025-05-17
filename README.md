@@ -2,7 +2,7 @@
 
 ---
 
-[![arXiv](https://img.shields.io/badge/arXiv--d63333.svg?logo=arxiv)]()[![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?logo=github)](https://github.com/yingjiahao14/Dual-Evaluation)[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/yingjiahao14/Dual-Eval/LICENSE.txt)[![Project Page](https://img.shields.io/badge/Page-Website-blue?logo=Google-Chrome)](https://yingjiahao14.github.io/Dual-Evaluation/)
+[![arXiv](https://img.shields.io/badge/arXiv--d63333.svg?logo=arxiv)]() [![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?logo=github)](https://github.com/yingjiahao14/Dual-Evaluation) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/yingjiahao14/Dual-Eval/blob/master/LICENSE.txt) [![Project Page](https://img.shields.io/badge/Page-Website-blue?logo=Google-Chrome)](https://yingjiahao14.github.io/Dual-Evaluation/)
 
 This repository contains the implementation code and associated data for our work, **"Disentangling Language Medium and Cultural Context for Evaluating Multilingual Large Language Models,"** published in 2025 ACL Main.
 
