@@ -67,8 +67,8 @@ def load_results(output_neuron_dir: str, model: str, country: str, prompt_no: in
     return results_us_us, results_other_us, results_other_other, results_us_other
     
 
-def jaccard_similarity_pro(setA: Set, setB: Set) -> float:
-    """specialized neurons"""
+def specialized_neurons_calculation(setA: Set, setB: Set) -> float:
+    """specialized neurons proportion"""
     if not setA and not setB:
         return 1.0
     inter = setA.intersection(setB)
@@ -126,10 +126,14 @@ def get_neuron_display_compare_pro():
 
         print(f"inter {len(inter_result)}, all {len(all_result)}")
         return inter_result, all_result
-
+    
+    
     def get_neuron_dis(results_us_us,
                   results_us_other,
                   label: str = "results_us_other"):
+        
+        """specialized neurons calculation for Pij (results_us_other - results_us_us)"""
+
         if len(results_us_us) != len(results_us_other):
             raise ValueError("results_us_us and results_us_other must contain the same number of cases.")
         
@@ -159,7 +163,7 @@ def get_neuron_display_compare_pro():
                 neurons_us = layers_us.get(layer, set())
                 neurons_other = layers_other.get(layer, set())
                 
-                jaccard = jaccard_similarity_pro(neurons_us, neurons_other)
+                jaccard = specialized_neurons_calculation(neurons_us, neurons_other)
                 case_jaccards.append(jaccard)
                 
                 # Calculate unique neurons
@@ -244,6 +248,7 @@ def get_neuron_display_compare_pro():
         return df_summary, df_jaccard, case_avg_jaccards
         
 
+    # load  reponse for Qii, Qji, Qjj, Qij
     lang1_content1 = pd.read_csv(os.path.join("model_inference_results/",f'{args.model}/{args.model}_US_US_{args.prompt_no}_response_score.csv'),encoding='utf-8')
     lang1_content2 = pd.read_csv(os.path.join("model_inference_results/",f'{args.model}/{args.model}_{args.country}_UK_{args.prompt_no}_response_score.csv'),encoding='utf-8')
     lang2_content2 = pd.read_csv(os.path.join("model_inference_results/",f'{args.model}/{args.model}_{args.country}_{args.country}_{args.prompt_no}_response_score.csv'),encoding='utf-8')
@@ -254,6 +259,7 @@ def get_neuron_display_compare_pro():
     lang2_content1_indexed = filtered_lang2_content1.set_index(['ID', 'answer_index'])
     matching_rows_count_q1 = lang1_content1_indexed.index.intersection(lang2_content1_indexed.index)
 
+    # remove q that is not answerable in BLEnD
     filtered_lang1_content2 = lang1_content2[lang1_content2['answer_index'] != -1]
     filtered_lang2_content2 = lang2_content2[lang2_content2['answer_index'] != -1]
     lang1_content2_indexed = filtered_lang1_content2.set_index(['ID', 'answer_index'])
@@ -300,24 +306,26 @@ def get_neuron_display_compare_pro():
     
     result_inter_us_us, result_inter_all = get_split_set(results_us_us, real_annotation_us, inter_ids_us, unique_ids_us_us)
     result_inter_us_other, result_inter_all_us = get_split_set(results_us_other, real_annotation, inter_ids_us, unique_ids_us_other)
-    results_us_us_list = []
+    results_us_us_list = [] 
     results_us_other_list = []
     for sample_us_us, sample_us_other in zip(result_inter_all, result_inter_all_us):
         results_us_us_list.append(list(func([sample_us_us], **func_args)))
         results_us_other_list.append(list(func([sample_us_other], **func_args)))
 
-    _, _, jaccard = get_neuron_dis(results_us_other_list, results_us_us_list, f"results_us_{args.country}")
+    # P en_j
+    _, _, jaccard = get_neuron_dis(results_us_us_list, results_us_other_list, f"results_us_{args.country}")
 
 
     result_inter_us_us, result_inter_all = get_split_set(results_other_other, real_annotation, inter_ids, unique_ids_other_other)
     result_inter_us_other, result_inter_all_us = get_split_set(results_other_us, real_annotation_us, inter_ids, unique_ids_other_us)
-    results_us_us_list = []
-    results_us_other_list = []
+    results_other_other_list = []
+    results_other_us_list = []
     for sample_us_us, sample_us_other in zip(result_inter_all, result_inter_all_us):
-        results_us_us_list.append(list(func([sample_us_other], **func_args)))
-        results_us_other_list.append(list(func([sample_us_us], **func_args)))
+        results_other_us_list.append(list(func([sample_us_other], **func_args)))
+        results_other_other_list.append(list(func([sample_us_us], **func_args)))
 
-    _, _, jaccard = get_neuron_dis(results_us_us_list, results_us_other_list, f"results_{args.country}_{args.country}")
+    # P j_j
+    _, _, jaccard = get_neuron_dis(results_other_us_list, results_other_other_list, f"results_{args.country}_{args.country}")
 
 
 
