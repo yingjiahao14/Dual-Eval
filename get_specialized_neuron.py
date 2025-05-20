@@ -336,7 +336,7 @@ if __name__ == "__main__":
     parser.add_argument('--country',type=str,default="China",help='',)
     parser.add_argument('--language',type=str,default="UK",help='',)
     parser.add_argument('--prompt_no',type=str,default="inst-8", help='Provide the propmt id (ex. inst-1, inst-2, pers-1, etc.')
-    parser.add_argument('--top_k', type=int, default=100, help="Number of top neurons to select (used in 'topk' and 'global_topk' modes)")
+    parser.add_argument('--top_k', type=int, default=5, help="Number of top neurons to select (used in 'topk' and 'global_topk' modes)")
     parser.add_argument('--score_threshold', type=float, default=-1, help="Score threshold multiplier (used in 'topscore' mode)")
     parser.add_argument('--file_threshold', type=float, default=1.0, help="Fraction of results to process")
     parser.add_argument('--output', type=str, default='neuron/neurons_setting.json', help="Output path for neuron settings")
