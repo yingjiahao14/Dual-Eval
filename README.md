@@ -126,6 +126,14 @@ You can choose different threshold functions for neuron selection by specifying 
 If you find this work helpful, please consider citing:
 
 ```bibtex
-
+@misc{ying2025disentanglinglanguagecultureevaluating,
+      title={Disentangling Language and Culture for Evaluating Multilingual Large Language Models}, 
+      author={Jiahao Ying and Wei Tang and Yiran Zhao and Yixin Cao and Yu Rong and Wenxuan Zhang},
+      year={2025},
+      eprint={2505.24635},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2505.24635}, 
+}
 ```
 
