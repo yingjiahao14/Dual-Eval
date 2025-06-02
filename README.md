@@ -23,7 +23,7 @@ This repository provides the code and data for our paper on multilingual LLMs ev
 ### Step 1: Clone the Repository and Create Environment
 
 ```bash
-git clone git@github.com:yingjiahao14/Dual-Eval.git
+git clone https://github.com/yingjiahao14/Dual-Eval
 cd Dual-Eval
 ```
 
